@@ -1,21 +1,16 @@
-
 import { defHttp } from '/@/utils/http/axios';
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 /**
-  * @description: Request list interface parameters
+ * @description: Request list interface parameters
  */
 export interface ListItem {
   id?: number;
-  
-    
-    
-    
-    
-    consignee: string,
-    tel: string,
-    orderNo: string,
-    address: string,
-    logistics: string,
+
+  consignee: string;
+  tel: string;
+  orderNo: string;
+  address: string;
+  logistics: string;
 }
 
 /**

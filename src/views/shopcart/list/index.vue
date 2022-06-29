@@ -1,4 +1,3 @@
-
 <template>
   <BasicTable @register="registerTable">
     <template #toolbar>
@@ -42,13 +41,7 @@
     components: { BasicTable, TableAction },
     setup() {
       const go = useGo();
-      const [
-        registerTable,
-        {
-          setLoading,
-          reload,
-        },
-      ] = useTable({
+      const [registerTable, { setLoading, reload }] = useTable({
         canResize: true,
         title: '购物车',
         size: 'small',
@@ -79,7 +72,7 @@
       async function handleDelete(record: Recordable) {
         setLoading(true);
         await deleteOne(record.id);
-        reload()
+        reload();
       }
 
       function handleView(record: Recordable) {
@@ -96,4 +89,3 @@
     },
   });
 </script>
-  
