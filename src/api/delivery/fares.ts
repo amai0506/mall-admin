@@ -1,23 +1,17 @@
-
 import { defHttp } from '/@/utils/http/axios';
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 /**
-  * @description: Request list interface parameters
+ * @description: Request list interface parameters
  */
 export interface ListItem {
   id?: number;
-  
-    
-    
-    
-    
-    
-    consignee: string,
-    tel: string,
-    orderNo: string,
-    address: string,
-    logistics: string,
-    logistics2: string,
+
+  consignee: string;
+  tel: string;
+  orderNo: string;
+  address: string;
+  logistics: string;
+  logistics2: string;
 }
 
 /**
@@ -40,42 +34,26 @@ export const getList = (params: BasicPageParams) =>
   defHttp.get<ListGetResultModel>({
     url: Api.GET_LIST,
     params,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 
 export const addOne = (params: ListItem) =>
   defHttp.post<any>({
     url: Api.ADD_ONE,
     params,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 
 export const updateOne = (params: ListItem) =>
   defHttp.put<any>({
     url: Api.UPDATE_ONE,
     params,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 
 export const deleteOne = (id: number) =>
   defHttp.delete<any>({
     url: `${Api.DELETE_ONE}/${id}`,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 
 export const getOne = (id: string) =>
   defHttp.get<any>({
     url: `${Api.GET_ONE}/${id}`,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
-    

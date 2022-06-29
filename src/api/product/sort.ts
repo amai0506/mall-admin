@@ -42,9 +42,6 @@ export const getList = (params: BasicPageParams) =>
   realHttp.get<ListGetResultModel>({
     url: Api.GET_LIST,
     params,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 
 export const addOne = (params: ListItem) => {
@@ -52,9 +49,6 @@ export const addOne = (params: ListItem) => {
   return realHttp.post<any>({
     url: Api.ADD_ONE,
     params,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 };
 
@@ -68,9 +62,6 @@ export const updateOne = async (params: ListItem) => {
   const response = await realHttp.put<any>({
     url: Api.UPDATE_ONE,
     params,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
   return response;
 };
@@ -78,9 +69,6 @@ export const updateOne = async (params: ListItem) => {
 export const deleteOne = (id: number) =>
   realHttp.delete<any>({
     url: `${Api.DELETE_ONE}/${id}`,
-    headers: {
-      ignoreCancelToken: true,
-    },
   });
 
 export const getOne = (id: string) =>

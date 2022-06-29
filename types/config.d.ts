@@ -140,6 +140,7 @@ export interface GlobConfig {
   title: string;
   // Service interface url
   apiUrl: string;
+  realUrl?: string;
   // Upload url
   uploadUrl?: string;
   //  Service interface url prefix
