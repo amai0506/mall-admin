@@ -69,9 +69,6 @@ export const getOne = (id: string) =>
   realHttp
     .get<any>({
       url: `${Api.GET_ONE}/${id}`,
-      headers: {
-        ignoreCancelToken: true,
-      },
     })
     .then((res) => {
       res.coverImageFileList =

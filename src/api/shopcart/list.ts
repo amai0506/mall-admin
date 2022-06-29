@@ -6,7 +6,6 @@ import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 export interface ListItem {
   id?: number;
 
-  id: string;
   user_id: string;
   nickname: string;
   goods_id: string;
