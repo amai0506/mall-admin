@@ -242,9 +242,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
 export const defHttp = createAxios();
 
 // other api url
-// export const otherHttp = createAxios({
-//   requestOptions: {
-//     apiUrl: 'xxx',
-//     urlPrefix: 'xxx',
-//   },
-// });
+export const realHttp = createAxios({
+  requestOptions: {
+    apiUrl: globSetting.realUrl,
+  },
+});

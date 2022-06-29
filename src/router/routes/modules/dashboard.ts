@@ -7,22 +7,23 @@ const dashboard: AppRouteModule = {
   path: '/dashboard',
   name: 'Dashboard',
   component: LAYOUT,
-  redirect: '/dashboard/analysis',
+  redirect: '/dashboard/workbench',
   meta: {
-    orderNo: 10,
+    orderNo: 1,
     icon: 'ion:grid-outline',
-    title: t('routes.dashboard.dashboard'),
+    title: '首页',
+    hideChildrenInMenu: true,
   },
   children: [
-    {
-      path: 'analysis',
-      name: 'Analysis',
-      component: () => import('/@/views/dashboard/analysis/index.vue'),
-      meta: {
-        // affix: true,
-        title: t('routes.dashboard.analysis'),
-      },
-    },
+    // {
+    //   path: 'analysis',
+    //   name: 'Analysis',
+    //   component: () => import('/@/views/dashboard/analysis/index.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: t('routes.dashboard.analysis'),
+    //   },
+    // },
     {
       path: 'workbench',
       name: 'Workbench',

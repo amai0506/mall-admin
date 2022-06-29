@@ -20,6 +20,17 @@ interface DynamicInfoItem {
   desc: string;
 }
 
+export interface GrowCardItem {
+  icon: string;
+  title: string;
+  value: number;
+  total: number;
+  color: string;
+  action: string;
+  name1: string;
+  name2: string;
+}
+
 export const navItems: NavItem[] = [
   {
     title: '首页',
@@ -74,7 +85,7 @@ export const dynamicInfoItems: DynamicInfoItem[] = [
   },
   {
     avatar: 'dynamic-avatar-4|svg',
-    name: 'Vben',
+    name: 'Qbird',
     date: '2天前',
     desc: `发表文章 <a>如何编写一个Vite插件</a> `,
   },
@@ -152,5 +163,37 @@ export const groupItems: GroupItem[] = [
     desc: '路是走出来的，而不是空想出来的。',
     group: '架构组',
     date: '2021-04-01',
+  },
+];
+export const growCardList: GrowCardItem[] = [
+  {
+    title: '顾客',
+    icon: 'visit-count|svg',
+    value: 2000,
+    total: 120000,
+    color: 'green',
+    action: '月',
+    name1: '新增',
+    name2: '老顾客',
+  },
+  {
+    title: '下单',
+    icon: 'total-sales|svg',
+    value: 20000,
+    total: 500000,
+    color: 'blue',
+    action: '月',
+    name1: '加入购物车',
+    name2: '提交订单数/金额',
+  },
+  {
+    title: '支付',
+    icon: 'download-count|svg',
+    value: 8000,
+    total: 120000,
+    color: 'orange',
+    action: '周',
+    name1: '加入购物车',
+    name2: '成交金额',
   },
 ];
