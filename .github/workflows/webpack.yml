@@ -1,0 +1,53 @@
+name: NodeJS with Webpack
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Get Time
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: +8
+        format: 'YYYYMMDDHHmmss'
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build
+      run: |
+        npm install -g yarn
+        yarn
+        yarn build
+
+    - name: build docker image
+      run: docker build . --file Dockerfile --tag mall-admin:$(date +%s)
+
+    - name: Publish to Docker Repository
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: shj1995/mall-admin:${{ steps.time.outputs.time }}
+        username: ${{ secrets.KSYUN_USERNAME }}
+        password: ${{ secrets.KSYUN_PASSWORD }}
+        registry: hub.kce.ksyun.com
+
+    - uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: set image deployments/mall-admin mall-admin=hub.kce.ksyun.com/shj1995/mall-admin:${{ steps.time.outputs.time }}
