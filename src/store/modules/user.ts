@@ -16,6 +16,7 @@ import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 import { isArray } from '/@/utils/is';
 import { h } from 'vue';
+import { decodeJwt } from 'jose';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -91,10 +92,9 @@ export const useUserStore = defineStore({
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
-        const { token } = data;
-
         // save token
-        this.setToken(token);
+        this.setToken(data);
+
         return this.afterLoginAction(goHome);
       } catch (error) {
         return Promise.reject(error);
@@ -103,7 +103,13 @@ export const useUserStore = defineStore({
     async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
       if (!this.getToken) return null;
       // get user info
-      const userInfo = await this.getUserInfoAction();
+      // const userInfo = await this.getUserInfoAction();
+      const token = this.getToken;
+      const payload = await decodeJwt(token);
+      console.log(payload);
+      const userInfo: any = payload.userInfo;
+      userInfo.fullName = userInfo.nickName;
+      this.setUserInfo(userInfo);
 
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
