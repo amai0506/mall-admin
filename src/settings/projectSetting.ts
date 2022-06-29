@@ -15,10 +15,10 @@ import { primaryColor } from '../../build/config/themeConfig';
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
-  showSettingButton: true,
+  showSettingButton: false,
 
   // Whether to show the theme switch button
-  showDarkModeToggle: true,
+  showDarkModeToggle: false,
 
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
@@ -62,17 +62,17 @@ const setting: ProjectConfig = {
     // Whether to show top
     show: true,
     // theme
-    theme: ThemeEnum.LIGHT,
+    theme: ThemeEnum.DARK,
     // Whether to enable the lock screen function
-    useLockPage: true,
+    useLockPage: false,
     // Whether to show the full screen button
-    showFullScreen: true,
+    showFullScreen: false,
     // Whether to show the document button
     showDoc: true,
     // Whether to show the notification button
-    showNotice: true,
+    showNotice: false,
     // Whether to display the menu search
-    showSearch: true,
+    showSearch: false,
   },
 
   // Menu configuration
@@ -103,7 +103,7 @@ const setting: ProjectConfig = {
     // Split menu
     split: false,
     // Top menu layout
-    topMenuAlign: 'center',
+    topMenuAlign: 'start',
     // Fold trigger position
     trigger: TriggerEnum.HEADER,
     // Turn on accordion mode, only show a menu
@@ -115,12 +115,11 @@ const setting: ProjectConfig = {
     // Fixed expanded menu
     mixSideFixed: false,
   },
-
   // Multi-label
   multiTabsSetting: {
     cache: false,
     // Turn on
-    show: true,
+    show: false,
     // Is it possible to drag and drop sorting tabs
     canDrag: true,
     // Turn on quick actions
@@ -130,7 +129,6 @@ const setting: ProjectConfig = {
     // Whether to show the collapse button
     showFold: true,
   },
-
   // Transition Setting
   transitionSetting: {
     //  Whether to open the page switching animation
@@ -145,7 +143,7 @@ const setting: ProjectConfig = {
     openPageLoading: true,
 
     // Whether to open the top progress bar
-    openNProgress: false,
+    openNProgress: true,
   },
 
   // Whether to enable KeepAlive cache is best to close during development, otherwise the cache needs to be cleared every time
