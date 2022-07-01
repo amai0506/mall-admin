@@ -1,4 +1,4 @@
-import { realHttp } from '/@/utils/http/axios';
+import { defHttp } from '/@/utils/http/axios';
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 /**
  * @description: Request list interface parameters
@@ -39,14 +39,14 @@ function handle(params: any) {
   console.log('params', params);
 }
 export const getList = (params: BasicPageParams) =>
-  realHttp.get<ListGetResultModel>({
+  defHttp.get<ListGetResultModel>({
     url: Api.GET_LIST,
     params,
   });
 
 export const addOne = (params: ListItem) => {
   handle(params);
-  return realHttp.post<any>({
+  return defHttp.post<any>({
     url: Api.ADD_ONE,
     params,
   });
@@ -59,7 +59,7 @@ export const updateOne = async (params: ListItem) => {
   params['icon'] = params['iconFileList']?.map((v) => v.url).join(',') || '';
   params['imageFileList'] = [];
   params['iconFileList'] = [];
-  const response = await realHttp.put<any>({
+  const response = await defHttp.put<any>({
     url: Api.UPDATE_ONE,
     params,
   });
@@ -67,12 +67,12 @@ export const updateOne = async (params: ListItem) => {
 };
 
 export const deleteOne = (id: number) =>
-  realHttp.delete<any>({
+  defHttp.delete<any>({
     url: `${Api.DELETE_ONE}/${id}`,
   });
 
 export const getOne = (id: string) =>
-  realHttp
+  defHttp
     .get<any>({
       url: `${Api.GET_ONE}/${id}`,
       headers: {

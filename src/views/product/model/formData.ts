@@ -3,19 +3,19 @@ import { DescItem } from '/@/components/Description/index';
 
 export const schemas: FormSchema[] = [
   {
-    field: 'name',
+    field: 'specName',
     component: 'Input',
-    label: '分类名称',
+    label: '规格名称',
     required: true,
     colProps: {
       md: 24,
     },
   },
   {
-    field: 'sort_order',
+    field: 'sort',
     component: 'InputNumber',
     label: '排序',
-    required: true,
+
     colProps: {
       md: 24,
     },

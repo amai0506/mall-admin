@@ -15,9 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { schemas } from '../formData';
   import { useMessage } from '/@/hooks/web/useMessage';
-
-  import { isArray } from '/@/utils/is';
-
+  import { addOne, updateOne } from '/@/api/product/model';
   export default defineComponent({
     name: 'AddModal',
     components: { BasicModal, BasicForm },
@@ -35,32 +33,33 @@
       });
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner((data) => {
+        console.log('data===', data);
         resetFields();
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
-        // if (unref(isUpdate)) {
-        //   rowId.value = data.record.id;
-        //   setFieldsValue({
-        //     ...data.record,
-        //   });
-        // }
+        if (unref(isUpdate)) {
+          rowId.value = data.record.id;
+          setFieldsValue({
+            ...data.record,
+          });
+        }
       });
       const { createMessage } = useMessage();
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增数据源' : '编辑数据源'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增型号' : '编辑型号'));
 
       const handleSubmit = async () => {
         try {
           const values = await validate();
           setModalProps({ confirmLoading: true });
-          // if (!unref(isUpdate)) {
-          //   await addOne({ ...values });
+          if (!unref(isUpdate)) {
+            await addOne({ ...values });
 
-          //   createMessage.success('操作成功');
-          // } else {
-          //   await updateOne({ id: rowId.value, ...values });
+            createMessage.success('操作成功');
+          } else {
+            await updateOne({ id: rowId.value, ...values });
 
-          //   createMessage.success('操作成功');
-          // }
+            createMessage.success('操作成功');
+          }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {

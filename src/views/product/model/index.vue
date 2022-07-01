@@ -2,20 +2,15 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate">添加</a-button>
+        <a-button type="primary" @click="handleEdit('add', record)">添加</a-button>
       </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
             {
-              label: '详情',
-              icon: 'clarity:info-standard-line',
-              onClick: handleView.bind(null, record),
-            },
-            {
               label: '编辑',
               icon: 'clarity:note-edit-line',
-              onClick: handleEdit.bind(null, record),
+              onClick: handleEdit.bind(null, 'edit', record),
             },
             {
               label: '删除',
@@ -52,13 +47,13 @@
         canResize: true,
         title: '商品型号',
         size: 'small',
-        bordered: true,
+        bordered: false,
         useSearchForm: true,
         formConfig: getFormConfig(),
         api: getList,
         columns: getBasicColumns(),
         rowKey: 'id',
-        showTableSetting: true,
+        showTableSetting: false,
         actionColumn: {
           width: 220,
           title: '操作',
@@ -68,17 +63,11 @@
         },
       });
 
-      function handleCreate() {
-        // go('/product/model/add');
-        //  openModal(true, {
-        //   record,
-        //   isUpdate: types == 'add' ? false : true,
-        // });
-        openModal(true);
-      }
-
-      function handleEdit(record: Recordable) {
-        go(`/product/model/edit/${record.id}`);
+      function handleEdit(type, record: Recordable) {
+        openModal(true, {
+          record,
+          isUpdate: type == 'add' ? false : true,
+        });
       }
 
       async function handleDelete(record: Recordable) {
@@ -88,14 +77,13 @@
       }
 
       function handleView(record: Recordable) {
-        go(`/product/model/details/${record.id}`);
+        // go(`/product/model/details/${record.id}`);
       }
 
       const handleSuccess = () => {};
 
       return {
         registerTable,
-        handleCreate,
         handleEdit,
         handleDelete,
         handleView,

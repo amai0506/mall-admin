@@ -17,11 +17,11 @@ export interface ListItem {
 export type ListGetResultModel = BasicFetchResult<ListItem>;
 
 enum Api {
-  GET_LIST = '/model/getList',
-  ADD_ONE = '/model/addOne',
-  UPDATE_ONE = '/model/updateOne',
-  DELETE_ONE = '/model/deleteOne',
-  GET_ONE = '/model/getOne',
+  GET_LIST = '/product/spec/list',
+  ADD_ONE = '/product/spec/create',
+  UPDATE_ONE = '/product/spec/update',
+  DELETE_ONE = '/product/spec/deleteById',
+  GET_ONE = '/product/spec/detailById',
 }
 /**
  * @description: Get sample list value

@@ -91,33 +91,6 @@ const product: AppRouteModule = {
         title: '商品型号',
       },
     },
-    {
-      path: 'model/edit/:id',
-      name: 'ModelEdit',
-      component: () => import('/@/views/product/model/operation/edit/index.vue'),
-      meta: {
-        title: '编辑商品型号',
-        hideMenu: true,
-      },
-    },
-    {
-      path: 'model/add',
-      name: 'ModelAdd',
-      component: () => import('/@/views/product/model/operation/add/index.vue'),
-      meta: {
-        title: '添加商品型号',
-        hideMenu: true,
-      },
-    },
-    {
-      path: 'model/details/:id',
-      name: 'ModelDetails',
-      component: () => import('/@/views/product/model/details/index.vue'),
-      meta: {
-        title: '商品型号详情',
-        hideMenu: true,
-      },
-    },
   ],
 };
 

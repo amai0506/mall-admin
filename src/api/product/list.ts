@@ -1,4 +1,4 @@
-import { realHttp } from '/@/utils/http/axios';
+import { defHttp } from '/@/utils/http/axios';
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 /**
  * @description: Request list interface parameters
@@ -32,7 +32,7 @@ enum Api {
  */
 
 export const getList = (params: BasicPageParams) =>
-  realHttp.get<ListGetResultModel>({
+  defHttp.get<ListGetResultModel>({
     url: Api.GET_LIST,
     params,
   });
@@ -46,7 +46,7 @@ function handle(params: any) {
 
 export const addOne = (params: any) => {
   handle(params);
-  return realHttp.post<any>({
+  return defHttp.post<any>({
     url: Api.ADD_ONE,
     params,
   });
@@ -54,19 +54,19 @@ export const addOne = (params: any) => {
 
 export const updateOne = (params: any) => {
   handle(params);
-  return realHttp.put<any>({
+  return defHttp.put<any>({
     url: Api.UPDATE_ONE,
     params,
   });
 };
 
 export const deleteOne = (id: number) =>
-  realHttp.delete<any>({
+  defHttp.delete<any>({
     url: `${Api.DELETE_ONE}/${id}`,
   });
 
 export const getOne = (id: string) =>
-  realHttp
+  defHttp
     .get<any>({
       url: `${Api.GET_ONE}/${id}`,
     })
