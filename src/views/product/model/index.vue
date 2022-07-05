@@ -77,6 +77,7 @@
       }
 
       function handleView(record: Recordable) {
+        console.log(record);
         // go(`/product/model/details/${record.id}`);
       }
 

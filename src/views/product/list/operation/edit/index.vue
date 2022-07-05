@@ -153,7 +153,7 @@
       }
 
       function goBack() {
-        go(-1);
+        go();
       }
       const handlePreviewImgs = async (file) => {
         if (!file.url && !file.preview) {

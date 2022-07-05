@@ -16,6 +16,9 @@ import {
   Form,
   Divider,
   Cascader,
+  Popconfirm,
+  Table,
+  InputNumber,
 } from 'ant-design-vue';
 
 const compList = [AntButton.Group];
@@ -38,5 +41,8 @@ export function registerGlobComp(app: App) {
     .use(Form)
     .use(Divider)
     .use(Cascader)
+    .use(Popconfirm)
+    .use(Table)
+    .use(InputNumber)
     .use(Tabs);
 }
