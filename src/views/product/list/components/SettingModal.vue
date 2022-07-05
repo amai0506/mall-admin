@@ -9,7 +9,7 @@
     :footer="null"
   >
     <a-card>
-      <a-table :columns="columns" :data-source="data" :pagination="false">
+      <a-table :columns="columns" :data-source="data" :pagination="false" :loading="loading">
         <template
           v-for="(col, i) in [
             'sku',
@@ -52,8 +52,8 @@
               <span v-if="record.isNew">
                 <a @click="save(record)">添加</a>
                 <a-divider type="vertical" />
-                <a-popconfirm title="是否要删除此行？" @confirm="cancel(record)">
-                  <a>删除</a>
+                <a-popconfirm title="是否要删除此行？" @confirm="del(record)">
+                  <a style="color: red">删除</a>
                 </a-popconfirm>
               </span>
               <span v-else>
@@ -64,6 +64,10 @@
             </span>
             <span v-else>
               <a @click="edit(record.key)">编辑</a>
+              <a-divider type="vertical" />
+              <a-popconfirm title="是否要删除此行？" @confirm="del(record)">
+                <a style="color: red">删除</a>
+              </a-popconfirm>
             </span>
           </div>
         </template>
@@ -146,28 +150,32 @@
       slots: {
         customRender: 'operation',
       },
-      width: 100,
+      width: 150,
     },
   ];
   export default defineComponent({
     name: 'AddModal',
     components: { BasicModal, Icon },
-    emits: ['success', 'register'],
-    setup(_, { emit }) {
+    setup() {
       const rowId = ref('');
+      const loading = ref<boolean>(false);
       const editableData = reactive({});
       const data = ref<any[]>([]);
-      const [registerModal, { setModalProps, closeModal }] = useModalInner((data) => {
+      const [registerModal] = useModalInner((data) => {
         rowId.value = data.record.id;
       });
 
       watch(
         () => rowId.value,
         async (id) => {
-          const res = await getSpecOne(id);
-          data.value = (isArray(res) && res.map((item) => ({ ...item, key: item.id }))) || [];
+          await getData(id);
         }
       );
+
+      const getData = async (id) => {
+        const res = await getSpecOne(id);
+        data.value = (isArray(res) && res.map((item) => ({ ...item, key: item.id }))) || [];
+      };
 
       const { createMessage } = useMessage();
 
@@ -194,12 +202,18 @@
         }
         const target = data.value.find((item) => item.key === key);
         target.isNew = false;
+        loading.value = true;
         await updateOne({ ...editableData[key], productId: rowId.value });
         createMessage.success('操作成功');
+        getData(rowId.value);
         delete editableData[key];
+        loading.value = false;
       };
 
-      const cancel = async (record: Recordable) => {
+      const cancel = (key) => {
+        delete editableData[key];
+      };
+      const del = async (record: Recordable) => {
         const { key, id } = record;
         if (id) {
           await deleteOne(id);
@@ -209,6 +223,7 @@
         data.value = newData;
         delete editableData[key];
       };
+
       const newMember = () => {
         const key = new Date().getTime();
         data.value.push({
@@ -224,18 +239,10 @@
         });
         edit(key);
       };
-      const handleSubmit = async () => {
-        try {
-          closeModal();
-          emit('success');
-        } finally {
-          setModalProps({ confirmLoading: false });
-        }
-      };
 
       return {
         registerModal,
-        handleSubmit,
+
         newMember,
         cancel,
         edit,
@@ -243,6 +250,8 @@
         columns,
         data,
         editableData,
+        del,
+        loading,
       };
     },
   });
