@@ -15,7 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { schemas } from '../formData';
   import { useMessage } from '/@/hooks/web/useMessage';
-  import { updateOne } from '/@/api/product/model';
+  import { updateOrAdd } from '/@/api/product/banner';
   export default defineComponent({
     name: 'AddModal',
     components: { BasicModal, BasicForm },
@@ -44,21 +44,16 @@
         }
       });
       const { createMessage } = useMessage();
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增型号' : '编辑型号'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增推荐位' : '编辑推荐位'));
 
       const handleSubmit = async () => {
         try {
           const values = await validate();
           setModalProps({ confirmLoading: true });
-          if (!unref(isUpdate)) {
-            createMessage.success('操作成功');
-          } else {
-            await updateOne({ id: rowId.value, ...values });
-
-            createMessage.success('操作成功');
-          }
+          await updateOrAdd({ id: !unref(isUpdate) ? undefined : rowId.value, ...values });
+          createMessage.success('操作成功');
           closeModal();
-          emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
+          emit('success');
         } finally {
           setModalProps({ confirmLoading: false });
         }

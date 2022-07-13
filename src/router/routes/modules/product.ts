@@ -91,6 +91,14 @@ const product: AppRouteModule = {
         title: '商品型号',
       },
     },
+    {
+      path: 'banner',
+      name: 'Banner',
+      component: () => import('/@/views/product/banner/index.vue'),
+      meta: {
+        title: '推荐位',
+      },
+    },
   ],
 };
 
